@@ -1,1 +1,2 @@
-{"level":"FATAL","time":1343466344460,"message":"this is it"}
+{"level":"FATAL","time":1343493507772,"message":"some logger message"}
+{"level":"FATAL","time":1343493593870,"message":"other logger message"}

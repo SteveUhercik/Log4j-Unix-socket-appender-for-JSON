@@ -2,6 +2,7 @@ package com.mycompany.stevelearnslogging;
 
 import java.io.*;
 import org.apache.log4j.*;
+import org.apache.log4j.net.SocketAppender;
 import org.apache.log4j.spi.ErrorHandler;
 import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggerRepository;
@@ -15,16 +16,17 @@ public class App
 {    
     public static void main( String[] args ) throws IOException
     {
-        String path ="C:\\Users\\Stefan\\Desktop\\Eclipse\\JsonProjects\\SteveLearnsLogging\\src\\main\\java\\com\\mycompany\\stevelearnslogging\\";
+        String path ="C:\\Users\\Stefan\\Desktop\\Eclipse\\JsonProjects\\SteveLearnsLogging\\src\\main\\java\\com\\mycompany\\stevelearnslogging\\jsonFile.json";
        
         BasicConfigurator.configure();
       
-        MyJsonLayout layout = new MyJsonLayout();
-       
-        FileAppender appender = new FileAppender(layout, path+"jsonFile.json");   
+        MyJsonLayout layout = new MyJsonLayout();   
+        
+        MySocketAppender appender = new MySocketAppender("localhost",5001,layout);
+           
         Logger rootLogger = Logger.getRootLogger();
         rootLogger.addAppender(appender);
-        rootLogger.fatal("this is it");     
+        rootLogger.fatal("other logger message");     
         
     }
 }
