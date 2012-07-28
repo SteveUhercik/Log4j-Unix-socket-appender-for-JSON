@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.log4j.AppenderSkeleton;
@@ -21,47 +20,48 @@ import org.newsclub.net.unix.AFUNIXSocketException;
 
 /**
  *
- * @author Stefan
+ * @author steve
  */
-public class MySocketAppender extends AppenderSkeleton {
-
-    private Socket socket;
+public class MyUnixSocketAppender extends AppenderSkeleton{
+    
     private PrintStream ps;
     private String host;
     private int port;
+    private final File socketFile;
+    private AFUNIXSocket socket;
+    private PrintWriter writer;
     
-    public MySocketAppender(String host, int port, Layout layout) {
-        this.host = host;
-        this.port = port;
+    public MyUnixSocketAppender(File socketFile, Layout layout) throws IOException{
+     
         this.layout = layout;
-        
+        this.socketFile = socketFile;
+
+        socket = AFUNIXSocket.newInstance();
         try {
-            socket = new Socket(host,port);
-            ps = new PrintStream(socket.getOutputStream());
-        } catch (Exception ex) {
-            System.out.println("something went wrong");
-        }      
+            socket.connect(new AFUNIXSocketAddress(socketFile));
+        } catch (AFUNIXSocketException e) {
+            System.out.println("Cannot connect to server. Have you started it?");
+        }
         
+        writer = new PrintWriter(socket.getOutputStream());
     }
     
     @Override
     protected void append(LoggingEvent event) {  
-              
-        
-        ps.println(this.layout.format(event));        
+        writer.println(this.layout.format(event));             
+        writer.flush();
     }
 
     public void close() {
-        try {
+        try {      
             socket.close();
         } catch (IOException ex) {
-            System.out.println("problem while closing");
+            System.out.println("problems with closing");
         }
-        ps.close();
+        writer.close();
     }
 
     public boolean requiresLayout() {
-        return false;
+        return true;
     }
-    
 }

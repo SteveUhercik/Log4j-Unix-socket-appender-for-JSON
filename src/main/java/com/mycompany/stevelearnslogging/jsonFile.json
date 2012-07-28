@@ -1,2 +1,6 @@
 {"level":"FATAL","time":1343493507772,"message":"some logger message"}
 {"level":"FATAL","time":1343493593870,"message":"other logger message"}
+{"level":"FATAL","time":1343507223001,"message":"the next logger message"}
+{"level":"FATAL","time":1343508163440,"message":"the next logger message"}
+{"level":"FATAL","time":1343508212380,"message":"message 1"}
+{"level":"FATAL","time":1343509113222,"message":"message 2"}

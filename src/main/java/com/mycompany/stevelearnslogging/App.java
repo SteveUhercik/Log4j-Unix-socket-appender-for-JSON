@@ -22,11 +22,12 @@ public class App
       
         MyJsonLayout layout = new MyJsonLayout();   
         
-        MySocketAppender appender = new MySocketAppender("localhost",5001,layout);
-           
+        //MySocketAppender appender = new MySocketAppender("localhost",5001,layout);
+        MyUnixSocketAppender appender = new MyUnixSocketAppender(new File(new File(System.getProperty("java.io.tmpdir")), "junixsocket-test.sock"),layout);
+        
         Logger rootLogger = Logger.getRootLogger();
         rootLogger.addAppender(appender);
-        rootLogger.fatal("other logger message");     
+        rootLogger.fatal("message 2");     
         
     }
 }

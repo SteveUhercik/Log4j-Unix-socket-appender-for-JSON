@@ -23,7 +23,8 @@ public class MyServerSocket {
     }
     
     public void run() throws Exception{   
-        String path = "C:\\Users\\Stefan\\Desktop\\Eclipse\\JsonProjects\\SteveLearnsLogging\\src\\main\\java\\com\\mycompany\\stevelearnslogging\\jsonFile.json";
+        //String path = "C:\\Users\\Stefan\\Desktop\\Eclipse\\JsonProjects\\SteveLearnsLogging\\src\\main\\java\\com\\mycompany\\stevelearnslogging\\jsonFile.json";
+        String path = "/home/steve/NetBeansProjects/Log4j-Unix-socket-appender-for-JSON/src/main/java/com/mycompany/stevelearnslogging/jsonFile.json";
         
         ServerSocket servSocket = new ServerSocket(5001);
         Socket socket = servSocket.accept();
